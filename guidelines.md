@@ -8,7 +8,7 @@ Todos los módulos deberán ir respectivamente documentados. El idioma utilizado
 Se utilizará como base la guía de estilo para código de Python [PEP 8](https://peps.python.org/pep-0008/). Como herramienta de formato se utilizará [YAPF](https://github.com/google/yapf/tree/main) con las configuraciones por defecto.
 
 ### Configuraciones utilizando VS-Code:
-Se utilizarán las siguiente extensiones para la revisión del código:
+Se utilizarán las siguientes extensiones para la revisión del código:
 
 #### [yapf](https://marketplace.visualstudio.com/items?itemName=eeyore.yapf)
 Esta extensión realiza un formato automático de código basado en PEP8 (u otros estándares). En el archivo de configuración de VS code `settings.json` se agregará:
@@ -28,3 +28,9 @@ En el archivo de configuración de VS code `settings.json` se agregará:
 "pylint.lintOnChange": true,
 ```
 
+### Configuraciones utilizando nvim:
+Se utilizarán las siguientes extensiones para la revisión del código:
+
+#### Extensiones sugeridas:
+
+##### [linux-cultist/venv-selector.nvim](https://github.com/linux-cultist/venv-selector.nvim)
