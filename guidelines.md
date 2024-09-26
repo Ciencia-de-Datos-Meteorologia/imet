@@ -34,3 +34,17 @@ Se utilizarán las siguientes extensiones para la revisión del código:
 #### Extensiones sugeridas:
 
 ##### [linux-cultist/venv-selector.nvim](https://github.com/linux-cultist/venv-selector.nvim)
+
+## Testing scripts
+Todos los módulos, clases y métodos agregados a este paquete deben de contener funciones de prueba `test functions`. Se utilizará el framework de [`pytest`](https://docs.pytest.org/en/8.2.x/) para realizarlos.
+
+## Estructura de desarrollo
+
+## Configuraciones del paquete
+
+### Manejo de dependencias
+Cuando un nuevo módulo sea agregado, si este tiene depencencias, estas deberán ser añadidas al `setup.py` del proyecto. Dependiendo de la jerarquía del módulo se deberán añadir como dependencias opcionales u obligatorias.
+
+En esta [guía](https://setuptools.pypa.io/en/latest/userguide/dependency_management.html) se detalla como se debe llevar un manejo de dependencias correcto en la realización de un paquete.
+
+
