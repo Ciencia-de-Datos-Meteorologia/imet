@@ -8,9 +8,18 @@ import mysql.connector
 #
 from datetime import datetime
 from typing import Union, List, Tuple
+#
+import yaml
+import os
 
 
 def connect(host: str, user: str, password: str, database: str):
+
+    if user is None:
+        conf_dir = os.path.expanduser("~/.config/imet.yaml")
+        with open(conf_dir) as f:
+            user_conf = yaml.load(f)
+        print(user_conf)
 
     try:
         connection = mysql.connector.connect(host=host, user=user, password=password,
