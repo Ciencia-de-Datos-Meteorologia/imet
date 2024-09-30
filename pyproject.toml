@@ -1,29 +1,29 @@
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
-# import mysql
-# import pandas as pd
-# import mysql.connector
-# #
-# from datetime import datetime
-# from typing import Union, List, Tuple
 
 [project]
 name = "imet"
 version = "0.0.1"
 authors = [
-  { name="Josué Daniel Cuzco Rivera", email="josue.cuzco.r@gmail.com" },
-  { name="Jorge Alejandro Rodríguez Aldana",email="jorgealejandro1999@gmail.com" },
-  { name="Rodrigo Us Tumax", email="rodrigo.us002@gmail.com" }
+  { name = "Josué Daniel Cuzco Rivera", email = "josue.cuzco.r@gmail.com" },
+  { name = "Jorge Alejandro Rodríguez Aldana", email = "jorgealejandro1999@gmail.com" },
+  { name = "Rodrigo Us Tumax", email = "rodrigo.us002@gmail.com" },
 ]
 description = "A package with tools for [I]NSIVUMEH [Met]eorology GIS manipulation and automatization."
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  'mysql-connector-python>=9.0.0',
+  'numpy>=2.1.1',
+  'pandas>=2.2.3'
 ]
 
-# [project.urls]
-# Homepage = "https://github.com/pypa/sampleproject"
-# Issues = "https://github.com/pypa/sampleproject/issues"
+[project.urls]
+Homepage = "https://github.com/Ciencia-de-Datos-Meteorologia/imet"
+Issues = "https://github.com/Ciencia-de-Datos-Meteorologia/imet/issues"
