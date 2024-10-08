@@ -19,3 +19,5 @@ Herramientas para realizar mapas usando `matplotlib`, crearan objetos de tipo `p
 ### `imet.raster`
 Herramientas de manipulación de rasters. Unificar rasters en Xarrays, exportar .nc y .tif, operar rasters, interpolar, samplear, entre otros.
 
+### `imet.google`
+Herramientas para el uso de la API de Google.
