@@ -2,33 +2,107 @@
 # author: Josué Daniel Cuzco
 # author: Jorge Alejandro Rodríguez
 
-import mysql
+import os
+import yaml
 import pandas as pd
 import mysql.connector
 #
 from datetime import datetime
 from typing import Union, List, Tuple
-#
-import yaml
-import os
 
 
-def connect(host: str, user: str, password: str, database: str):
+def connect(database: str = None, host: str = None, user: str = None, password: str = None,
+            savecreds: bool = False):
+    """
+    Connect to a database with MySQL.
+    Credentials may be given as function arguments, terminal input
+    or fetched from a configuration file.
 
-    if user is None:
-        conf_dir = os.path.expanduser("~/.config/imet.yaml")
-        with open(conf_dir) as f:
-            user_conf = yaml.load(f)
-        print(user_conf)
+    Parameters
+    ----------
+    database : str, default None
+        Name of the database to connect to.
+    host : str, default None
+    user : str, default None
+    password : str, default None
+    savecreds : str, default False
+        Save credentials to a configuration file.
 
+    Returns
+    -------
+    MySQLConnection
+    """
+
+    # credentials file
+    config_file = os.path.expanduser("~/.config/imet/dbcreds.yaml")
+
+    # any of the credentials not provided, try to read credentials file
+    if any(cred is None for cred in [host, user, password]):
+        # creds file exists
+        if os.path.exists(config_file):
+            # load credentials
+            with open(config_file) as cred_f:
+                user_conf = yaml.safe_load(cred_f)
+
+            # put credentials into variables
+            host = user_conf['credentials']['host']
+            user = user_conf['credentials']['username']
+            password = user_conf['credentials']['password']
+
+        # creds file doesn't exist
+        else:
+            # ask for credentials
+            print('Credentials file NOT found')
+            attempt = input('Enter connection credentials? [y/n]: ')
+            # input credentials
+            if attempt.lower().__contains__('y'):
+                host = input('Host: ')
+                user = input('Username: ')
+                password = input('Password: ')
+                # ask to save credentials
+                if not savecreds:
+                    savecreds = input('Save credentials? [y/n]: ').lower().__contains__('y')
+                else:
+                    print('Credentials will be saved')
+            # no credentials error
+            else:
+                raise ValueError('Credentials NOT given')
+
+    # check for database name
+    if database is None:
+        # ask for database
+        print('Database was not given')
+        attempt = input('Enter database name? [y/n]: ')
+        # input database
+        if attempt.lower().__contains__('y'):
+            database = input('Database: ')
+        else:
+            print('Continuing without a database')
+
+    # save credentials
+    if savecreds:
+        # check if config dir exists
+        config_dir = os.path.split(config_file)[0]
+        # create config dir
+        if not os.path.exists(config_dir):
+            os.mkdir(config_dir)
+
+        # credentials dictionary
+        cred_dict = {'credentials':{'host':host, 'username':user, 'password':password}}
+
+        # save credentials
+        with open(config_file, 'w') as cred_f:
+            yaml.dump(cred_dict, cred_f)
+
+    # connect
     try:
         connection = mysql.connector.connect(host=host, user=user, password=password,
                                              auth_plugin='mysql_native_password',
                                              database=database)
         return connection
 
-    except Exception as e:
-        print(f'Connection failed: {e}')
+    except Exception as ee:
+        print(f'Connection failed: {ee}')
         return None
 
 
