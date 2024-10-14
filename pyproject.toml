@@ -8,7 +8,8 @@ version = "0.0.1"
 authors = [
   { name = "Josué Daniel Cuzco Rivera", email = "josue.cuzco.r@gmail.com" },
   { name = "Jorge Alejandro Rodríguez Aldana", email = "jorgealejandro1999@gmail.com" },
-  { name = "Rodrigo Us Tumax", email = "rodrigo.us002@gmail.com" },
+  { name = "Rodrigo José Us Tumax", email = "rodrigo.us002@gmail.com" },
+  { name = "Evelyn Marisol Pumay Soy", email = "3127225590416@ingenieria.usac.edu.gt" },
 ]
 description = "A package with tools for [I]NSIVUMEH [Met]eorology GIS manipulation and automatization."
 readme = "README.md"
