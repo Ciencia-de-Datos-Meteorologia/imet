@@ -3,16 +3,15 @@ import pandas as pd
 from datetime import datetime
 from dateutil.relativedelta import relativedelta as rd
 #
-import creds
-import databaseconnection as dbc
+from . import db_connect as dbc
 
 
 def data_obsmonth(month: datetime, variable: str,
                   codecol: str = 'CODIGO', datecol: str = 'FECHA',
                   database: str = 'CLIMATOLOGIA_INSIVUMEH_PROD',
                   table: str = '001_climatologia_ALFA_ICC',
-                  host: str = creds.host, user: str = creds.user,
-                  password: str = creds.password):
+                  host: str = None, user: str = None,
+                  password: str = None):
 
     # yesterday, limit for obs data
     yesterday = datetime.today()-rd(days=1)
@@ -45,8 +44,8 @@ def data_clima(month: datetime, variable: str, limit: int = None, climayears: tu
                codecol: str = 'CODIGO', datecol: str = 'FECHA',
                database: str = 'CLIMATOLOGIA_INSIVUMEH_PROD',
                table: str = '001_climatologia_ALFA_ICC',
-               host: str = creds.host, user: str = creds.user,
-               password: str = creds.password):
+               host: str = None, user: str = None,
+               password: str = None):
 
     # get limit day of the month
     if limit is None:
