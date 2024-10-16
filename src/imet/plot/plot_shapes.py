@@ -19,25 +19,25 @@ def plot_shapes(shfile:str, ax:plt.Axes, color:str='black', lw:float=1, ls:str='
         ax : plt.Axes 
             Matplotlib axes object where shapes will be drawn
 
-        color : str
+        color : str , by default='black'
             Color of the lines of the shape
 
-        lw : float
+        lw : float , by default=1
             Line thickness
         
-        ls : str
+        ls : str , by default= 'solid'
             Line style 
 
-        zorder : int
+        zorder : int , by default=6
             Stacking order for lines
 
-        fill : bool
+        fill : bool , by default=False
             If True, fill the shape with color
 
-        fcolor : str
+        fcolor : str , by default='black'
             Fill color
 
-        fzorder : int
+        fzorder : int , by default=3
             Stacking order for filling
 
 
