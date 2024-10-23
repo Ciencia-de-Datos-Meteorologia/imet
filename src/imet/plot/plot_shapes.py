@@ -81,14 +81,15 @@ def plot_shapes(shfile:str, ax:plt.Axes, color:str='black', lw:float=1, ls:str='
             if fill:
                 ax.fill(x, y, facecolor=fcolor, zorder=fzorder)
 
-    # Show the graphic
+
+if __name__ == '__main__':
+
+    # Crear la figura y los ejes de Matplotlib
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    # Llamar a plot_shapes con los parámetros adecuados
+    r = plot_shapes('/home/rodrigo/Documents/repositorios/gtMapTools/gtMapTools/utilities/maps/america/America.shx',
+            ax, color='blue', lw=0.5, fill=True, fcolor='lightblue')
+
+    print(r)
     plt.show()
-
-
-
-# # Crear la figura y los ejes de Matplotlib
-# fig, ax = plt.subplots(figsize=(10, 8))
-
-# # Llamar a plot_shapes con los parámetros adecuados
-# plot_shapes('/home/rodrigo/Documents/repositorios/gtMapTools/gtMapTools/utilities/maps/america/America.shx',
-#            ax, color='blue', lw=0.5, fill=True, fcolor='lightblue')
