@@ -1,6 +1,6 @@
 import shapefile
 import matplotlib.pyplot as plt
-import cartopy.io.shapereader as shpreader
+# import cartopy.io.shapereader as shpreader
 import numpy as np
 
 # draw shapes # correctly draws every part of every shape in a shapefile
@@ -82,14 +82,17 @@ def plot_shapes(shfile:str, ax:plt.Axes, color:str='black', lw:float=1, ls:str='
                 ax.fill(x, y, facecolor=fcolor, zorder=fzorder)
 
 
+
+
+
+
+#This part of the code is executed if 'plot_shapes.py' is run in the terminal
 if __name__ == '__main__':
 
     # Crear la figura y los ejes de Matplotlib
     fig, ax = plt.subplots(figsize=(10, 8))
 
     # Llamar a plot_shapes con los parámetros adecuados
-    r = plot_shapes('/home/rodrigo/Documents/repositorios/gtMapTools/gtMapTools/utilities/maps/america/America.shx',
-            ax, color='blue', lw=0.5, fill=True, fcolor='lightblue')
+    plot_shapes('/home/rodrigo/Documents/repositorios/gtMapTools/gtMapTools/utilities/maps/america/America.shx', ax, color='blue', lw=0.5, fill=True, fcolor='lightblue')
 
-    print(r)
     plt.show()

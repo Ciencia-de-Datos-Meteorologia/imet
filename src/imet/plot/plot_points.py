@@ -36,6 +36,7 @@ def plot_points(points,ax,color='black'):
 
 
 
+
 #This part of the code is executed if 'plot_points.py' is run in the terminal
 if __name__=='__main__':
     import matplotlib.pyplot as plt
