@@ -1,8 +1,8 @@
 import pandas as pd
 #
 from datetime import datetime
-from typing import Tuple
-from dateutil.relativedelta import relativedelta as rd
+from typing import Tuple,List
+from dateutil.relativedelta import relativedelta 
 #
 
 import psql_connect as dbc
@@ -56,6 +56,50 @@ def data_groupby(codes:str, variables: str, daterange:Tuple[datetime, datetime],
     result_data = result_data.drop(columns=datecol)
 
     return result_data
+def iterar_fechas(daterange: Tuple[datetime, datetime], delta: relativedelta) -> List[Tuple[datetime, datetime]]:
+    fecha_inicio, fecha_fin = daterange
+    fecha_actual = fecha_inicio
+    rangos = []  # Lista para almacenar los rangos de fechas
+
+    while fecha_actual <= fecha_fin:
+        range_start = fecha_actual
+        fecha_actual += delta
+        range_end = fecha_actual
+        
+        if range_end > fecha_fin:
+            range_end = fecha_fin
+        
+        timerange = (range_start, range_end)
+        rangos.append(timerange)  # Agregar el rango a la lista
+
+    return rangos
+
+def groupby_timedelta(codes:str, variables: str, daterange:Tuple[datetime, datetime], frecuency:relativedelta, 
+                      codecol: str = 'codigo',datecol: str = 'fecha',precipcol: str = 'precipitaciÓn'):
+    
+    rangos=iterar_fechas(daterange, frecuency)
+    resultados = []
+    for rango in rangos: 
+        fecha_inicio, fecha_fin = rango
+        data = filterdata(codecol, codes, variables, rango)
+        exclude_cols = [datecol, codecol, precipcol]
+    
+        if precipcol in data.columns:
+            agg_dict = {precipcol: 'sum'}  
+            for col in data.columns:
+                if col in data.columns and col not in exclude_cols:
+                    if pd.api.types.is_numeric_dtype(data[col]):
+                        agg_dict[col] = 'mean'
+                    else:
+                        agg_dict[col] = 'first' 
+
+            data = data.groupby(codecol).agg(agg_dict).reset_index()
+            data['fecha_inicio'] = fecha_inicio
+            data['fecha_fin'] = fecha_fin
+            resultados.append(data)
+    resultado_final = pd.concat(resultados, ignore_index=True)
+    return resultado_final
+      
 
 
 def filterdata(colfilter:str=None, codes:str=None,variables:str=None, daterange:datetime=None, 
@@ -98,24 +142,31 @@ def filterdata(colfilter:str=None, codes:str=None,variables:str=None, daterange:
 
     query=dbc.queryFilter(colfilter,codes, variables, codecol, datecol, daterange, table)
 
-    print(query)
-
     #request data
     data= dbc.connect_n_query(query, host, user, password, database)
     return data
 
 def main():
 
-    variables=['precipitaciÓn','nubosidad','latitud', 'codigo_insivumeh']
-    codes=["INS190301CV","INS131501CV"]
-    month=datetime(2024, 9, 1)
-    codecol='codigo'
-    #resultdata=data_month(month, codes, variables)
-    result=data_groupby(None, variables, (datetime(2022, 1, 1), datetime(2024, 6, 1)), frequency='Y')
-    print(result)
+    # variables=['precipitaciÓn','nubosidad','latitud', 'codigo_insivumeh']
+    # codes=["INS190301CV","INS131501CV"]
+    # month=datetime(2024, 9, 1)
+    # codecol='codigo'
+    # #resultdata=data_month(month, codes, variables)
+    # result=data_groupby("INS190301CV", variables, (datetime(2022, 1, 1), datetime(2024, 6, 1)), frequency='Y')
+    # print(result)
 
     #https://pandas.pydata.org/pandas-docs/version/1.3.1/getting_started/intro_tutorials/09_timeseries.html
     #https://pandas.pydata.org/pandas-docs/version/0.22/generated/pandas.core.groupby.DataFrameGroupBy.agg.html
+
+    rango = (datetime(2022, 1, 1), datetime(2024, 6, 1))
+    variables=['precipitaciÓn','nubosidad','latitud', 'nombre_estaciÓn']
+    delta = relativedelta(months=3, days=10)  # Cambiar cada 3 meses y 10 días
+    codes=["INS190301CV","INS131501CV"]
+    #groupby_timedelta("INS190301CV", variables, rango, delta)
+    data=groupby_timedelta(codes, variables, rango, delta)
+    print(data)
+
     
    
     

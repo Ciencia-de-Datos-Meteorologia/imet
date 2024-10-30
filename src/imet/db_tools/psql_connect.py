@@ -45,7 +45,6 @@ def connect(database: str = None, host: str = None, user: str = None, password: 
             host = user_conf['credentials']['host']
             user = user_conf['credentials']['username']
             password = user_conf['credentials']['password']
-            print(host, user, password)
 
         # creds file doesn't exist
         else:
