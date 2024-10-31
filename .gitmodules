@@ -1,0 +1,3 @@
+[submodule "src/imet/db_tools/UI_DataBase_queries"]
+	path = src/imet/db_tools/UI_DataBase_queries
+	url = git@github.com:Ciencia-de-Datos-Meteorologia/UI_DataBase_queries.git
