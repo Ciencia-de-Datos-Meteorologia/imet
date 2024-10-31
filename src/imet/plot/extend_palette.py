@@ -29,7 +29,7 @@ def colorFader(c1,c2,mix=0):
 
 def extend_palette(palette:list,amnt:int,dir:str):
     """
-    
+    Extend the palette of colors by interpolating the list 'palette'. 
 
     Parameters
     ----------
