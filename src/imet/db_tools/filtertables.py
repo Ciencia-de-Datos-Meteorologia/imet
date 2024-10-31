@@ -76,6 +76,30 @@ def iterar_fechas(daterange: Tuple[datetime, datetime], delta: relativedelta) ->
 
 def groupby_timedelta(codes:str, variables: str, daterange:Tuple[datetime, datetime], frecuency:relativedelta, 
                       codecol: str = 'codigo',datecol: str = 'fecha',precipcol: str = 'precipitaciÓn'):
+    """_summary_
+
+    Parameters
+    ----------
+    codes : str
+        _description_
+    variables : str
+        _description_
+    daterange : Tuple[datetime, datetime]
+        _description_
+    frecuency : relativedelta
+        _description_
+    codecol : str, optional
+        _description_, by default 'codigo'
+    datecol : str, optional
+        _description_, by default 'fecha'
+    precipcol : str, optional
+        _description_, by default 'precipitaciÓn'
+
+    Returns
+    -------
+    _type_
+        _description_
+    """
     
     rangos=iterar_fechas(daterange, frecuency)
     resultados = []
