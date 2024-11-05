@@ -9,22 +9,33 @@ import psql_connect as dbc
 
 
 
-def data_groupby(codes:str, variables: str, daterange:Tuple[datetime, datetime], frequency:str='ME', codecol: str = 'codigo',datecol: str = 'fecha',precipcol: str = 'precipitaciÓn'):
-    
-    # Resumen de las frecuencias
-    # 'D': Diario
-    # 'W': Semanal
-    # 'M': Mensual
-    # 'Q': Trimestral
-    # 'Y': Anual
+def data_groupby(codes:str, variables: str, daterange:Tuple[datetime, datetime], frequency:str='ME', codecol: str = 'codigo',
+    datecol: str = 'fecha',precipcol: str = 'precipitacion'):
+    """_summary_
 
-    # 'W-Mon': Weekly frequency, starting on Monday.
-    # 'W-Tue': Weekly frequency, starting on Tuesday.
-    # 'W-Wed': Weekly frequency, starting on Wednesday.
-    # 'W-Thu': Weekly frequency, starting on Thursday.
-    # 'W-Fri': Weekly frequency, starting on Friday.
-    # 'W-Sat': Weekly frequency, starting on Saturday.
-    # 'W-Sun': Weekly frequency, starting on Sunday.
+    Parameters
+    ----------
+    codes : str
+        _description_
+    variables : str
+        _description_
+    daterange : Tuple[datetime, datetime]
+        _description_
+    frequency : str, optional
+        _description_, by default 'ME'
+    codecol : str, optional
+        _description_, by default 'codigo'
+    datecol : str, optional
+        _description_, by default 'fecha'
+    precipcol : str, optional
+        _description_, by default 'precipitaciÓn'
+
+    Returns
+    -------
+    _type_
+        _description_
+    """
+
 
     #call to filterdata
     data=filterdata(codecol,codes, variables, daterange)
@@ -75,7 +86,7 @@ def iterar_fechas(daterange: Tuple[datetime, datetime], delta: relativedelta) ->
     return rangos
 
 def groupby_timedelta(codes:str, variables: str, daterange:Tuple[datetime, datetime], frecuency:relativedelta, 
-                      codecol: str = 'codigo',datecol: str = 'fecha',precipcol: str = 'precipitaciÓn'):
+                      codecol: str = 'codigo',datecol: str = 'fecha',precipcol: str = 'precipitacion'):
     """_summary_
 
     Parameters
@@ -184,7 +195,7 @@ def main():
     #https://pandas.pydata.org/pandas-docs/version/0.22/generated/pandas.core.groupby.DataFrameGroupBy.agg.html
 
     rango = (datetime(2022, 1, 1), datetime(2024, 6, 1))
-    variables=['precipitaciÓn','nubosidad','latitud', 'nombre_estaciÓn']
+    variables=['precipitacion','nubosidad','latitud', 'nombre_estacion']
     delta = relativedelta(months=3, days=10)  # Cambiar cada 3 meses y 10 días
     codes=["INS190301CV","INS131501CV"]
     #groupby_timedelta("INS190301CV", variables, rango, delta)
@@ -192,6 +203,20 @@ def main():
     print(data)
 
     
+    # Resumen de las frecuencias
+    # 'D': Diario
+    # 'W': Semanal
+    # 'M': Mensual
+    # 'Q': Trimestral
+    # 'Y': Anual
+
+    # 'W-Mon': Weekly frequency, starting on Monday.
+    # 'W-Tue': Weekly frequency, starting on Tuesday.
+    # 'W-Wed': Weekly frequency, starting on Wednesday.
+    # 'W-Thu': Weekly frequency, starting on Thursday.
+    # 'W-Fri': Weekly frequency, starting on Friday.
+    # 'W-Sat': Weekly frequency, starting on Saturday.
+    # 'W-Sun': Weekly frequency, starting on Sunday.
    
     
 

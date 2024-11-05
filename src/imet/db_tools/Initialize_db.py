@@ -24,16 +24,16 @@ def create_table(table_name:str,database:str=None, host: str = None, user: str =
     try:
         connection.autocommit = True
         cursor=connection.cursor()
-        create_table_query=f'''CREATE TABLE  {table_name} (FECHA DATE, NOMBRE_ESTACIÓN VARCHAR(75),
+        create_table_query=f'''CREATE TABLE  {table_name} (FECHA DATE, NOMBRE_ESTACION VARCHAR(75),
                                                     CODIGO VARCHAR(25),CODIGO_INSIVUMEH VARCHAR(35),
-                                                    PRECIPITACIÓN NUMERIC(6,1),TEMPERATURA_MÁXIMA NUMERIC(4,1),
-                                                    TEMPERATURA_MÍNIMA NUMERIC(4,1),TEMPERATURA_MEDIA NUMERIC(4,1),
-                                                    EVAPORACIÓN_TANQUE NUMERIC(4,1),EVAPORACIÓN_PICHE NUMERIC(4,1),
+                                                    PRECIPITACION NUMERIC(6,1),TEMPERATURA_MAXIMA NUMERIC(4,1),
+                                                    TEMPERATURA_MINIMA NUMERIC(4,1),TEMPERATURA_MEDIA NUMERIC(4,1),
+                                                    EVAPORACIÓN_TANQUE NUMERIC(4,1),EVAPORACION_PICHE NUMERIC(4,1),
                                                     HUMEDAD_RELATIVA NUMERIC(5,1),BRILLO_SOLAR NUMERIC(4,1),
                                                     NUBOSIDAD INT,VELOCIDAD_VIENTO NUMERIC(4,1),
-                                                    DIRECCIÓN_VIENTO NUMERIC(4,1),PRESIÓN_ATMOSFÉRICA NUMERIC(6,1),
+                                                    DIRECCION_VIENTO NUMERIC(4,1),PRESION_ATMOSFERICA NUMERIC(6,1),
                                                     TEMPERATURA_SUELO_5CM NUMERIC(4,1),TEMPERATURA_SUELO_50CM NUMERIC(4,1),
-                                                    TEMPERATURA_SUELO_100CM NUMERIC(4,1),RADIACIÓN NUMERIC(7,4),
+                                                    TEMPERATURA_SUELO_100CM NUMERIC(4,1),RADIACION NUMERIC(7,4),
                                                     Latitud NUMERIC(14,10),Longitud NUMERIC(14,10),
                                                     Altitud NUMERIC(14,10),FUENTE VARCHAR(25));'''
         cursor.execute(create_table_query)

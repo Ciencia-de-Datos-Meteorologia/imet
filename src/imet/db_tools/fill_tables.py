@@ -6,7 +6,7 @@ from psql_connect import connect
 
 
 
-def fill_tablebyDate(fecha_formato:str=None, database:str=None, ruta:str='../base_datos_completa.csv', host: str = None, user: str = None, password: str = None):
+def fill_tablebyDate(table_name:str,fecha_formato:str=None, database:str=None, ruta:str='../base_datos_completa.csv', host: str = None, user: str = None, password: str = None):
     #table_name=_001_climatologia_ALFA_ICC
     connection=connect(database,host, user, password)
     cursor = connection.cursor()
@@ -20,17 +20,17 @@ def fill_tablebyDate(fecha_formato:str=None, database:str=None, ruta:str='../bas
     print(df_data)
 
 
-    query_insert_data = f"""INSERT INTO {database} (FECHA,CODIGO,
-                                    CODIGO_INSIVUMEH,NOMBRE_ESTACIÓN,  
-                                                            PRECIPITACIÓN,TEMPERATURA_MÁXIMA,
-                                                            TEMPERATURA_MÍNIMA,TEMPERATURA_MEDIA,
+    query_insert_data = f"""INSERT INTO {table_name} (FECHA,CODIGO,
+                                    CODIGO_INSIVUMEH,NOMBRE_ESTACION,  
+                                                            PRECIPITACION,TEMPERATURA_MAXIMA,
+                                                            TEMPERATURA_MINIMA,TEMPERATURA_MEDIA,
                                                             HUMEDAD_RELATIVA,
-                                                            EVAPORACIÓN_TANQUE,EVAPORACIÓN_PICHE,
+                                                            EVAPORACION_TANQUE,EVAPORACION_PICHE,
                                                             BRILLO_SOLAR,NUBOSIDAD,
-                                                            VELOCIDAD_VIENTO,DIRECCIÓN_VIENTO,
-                                                            PRESIÓN_ATMOSFÉRICA,TEMPERATURA_SUELO_5CM,
+                                                            VELOCIDAD_VIENTO,DIRECCION_VIENTO,
+                                                            PRESION_ATMOSFERICA,TEMPERATURA_SUELO_5CM,
                                                             TEMPERATURA_SUELO_50CM,TEMPERATURA_SUELO_100CM,
-                                                            RADIACIÓN,LATITUD,
+                                                            RADIACION,LATITUD,
                                                             LONGITUD,ALTITUD,
                                                             FUENTE) 
                                                             VALUES(%s,%s,%s,
@@ -42,7 +42,7 @@ def fill_tablebyDate(fecha_formato:str=None, database:str=None, ruta:str='../bas
                                                                     %s,%s,%s,
                                                                     %s,%s,%s)"""
 
-
+    contador=0
     ## cliclo para subir los registros uno a uno
     for index,row in df_data.iterrows():
     # Convertir todos los valores a tipos nativos de Python
@@ -50,23 +50,23 @@ def fill_tablebyDate(fecha_formato:str=None, database:str=None, ruta:str='../bas
             row['FECHA'],
             row['CODIGO'],
             row['CODIGO_INSIVUMEH'],
-            row['NOMBRE_ESTACIÓN'],
-            row['PRECIPITACIÓN'],
-            row['TEMPERATURA_MÁXIMA'],
-            row['TEMPERATURA_MÍNIMA'],
+            row['NOMBRE_ESTACION'],
+            row['PRECIPITACION'],
+            row['TEMPERATURA_MAXIMA'],
+            row['TEMPERATURA_MINIMA'],
             row['TEMPERATURA_MEDIA'],
             row['HUMEDAD_RELATIVA'],
-            row['EVAPORACIÓN_TANQUE'],
-            row['EVAPORACIÓN_PICHE'],
+            row['EVAPORACION_TANQUE'],
+            row['EVAPORACION_PICHE'],
             row['BRILLO_SOLAR'],
             row['NUBOSIDAD'],
             row['VELOCIDAD_VIENTO'],
-            row['DIRECCIÓN_VIENTO'],
-            row['PRESIÓN_ATMOSFÉRICA'],
+            row['DIRECCION_VIENTO'],
+            row['PRESION_ATMOSFERICA'],
             row['TEMPERATURA_SUELO_5CM'],
             row['TEMPERATURA_SUELO_50CM'],
             row['TEMPERATURA_SUELO_100CM'],
-            row['RADIACIÓN'],
+            row['RADIACION'],
             float(row['LATITUD']) if pd.notna(row['LATITUD']) else None,
             float(row['LONGITUD']) if pd.notna(row['LONGITUD']) else None,
             row['ALTITUD'],
@@ -74,6 +74,14 @@ def fill_tablebyDate(fecha_formato:str=None, database:str=None, ruta:str='../bas
         ]
         cursor.execute(query_insert_data, variables)
         connection.commit()
+        contador += 1
+
+        # Imprimir el contador de inserciones por cada fila
+        if contador % 1000 == 0:  # Esto es opcional, imprime cada 1000 filas
+            print(f'{contador} registros insertados...')
+
+    # Mensaje final cuando todos los datos han sido insertados
+    print(f'Proceso completado. Se insertaron {contador} registros en total.')
 
 
 
