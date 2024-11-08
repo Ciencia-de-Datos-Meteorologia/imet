@@ -4,7 +4,7 @@ def plot_points(points,ax,color='black'):
 
     Parameters
     ----------
-    array : list
+    points : list
         List with the coordenate (y,x) and the label. For example [[2,4,'Point A'] , [5,3,'Point B']]
     ax : plt.Axes
         Here's where the points are gonna be drawn.
